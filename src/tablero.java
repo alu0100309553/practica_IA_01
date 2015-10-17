@@ -1,7 +1,10 @@
+//En esta clase se definen todos los métodos para el manejo de la parte gráfica del problema
+
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.awt.Color;
+//import problema;
 
 public class tablero extends JPanel {
 	
@@ -9,23 +12,19 @@ public class tablero extends JPanel {
 	private int celdasancho;
 	private int lado;
 	private int [][] matriz;
+	private problema prob;
 	private boolean iniciado = false;
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (iniciado==false){
-			matriz = new int [celdasancho][celdasalto];
-			for (int i = 0; i<celdasancho;i++){
-				for (int j = 0 ; j<celdasalto;j++){
-					matriz [i][j]=0;
-				}
-			}
+			prob = new problema(celdasancho, celdasalto);
 		}
 		cuadricula(g);
 		iniciado=true;
 		for (int i = 0 ; i < celdasancho ; i++){
 			for (int j = 0 ; j < celdasalto ; j++){
-				if (matriz [i][j]==1){
+				if (prob.getmatriz(i, j)==1){
 					creaobstaculo(i, j, g);
 				}
 			}
@@ -34,10 +33,10 @@ public class tablero extends JPanel {
 	}
 	
 	public void setmatriz(int x, int y, int estado){
-		matriz [x][y]=estado; 
+		prob.setmatriz(x, y, estado); 
 	}
 	public int getmatriz(int x, int y){
-		return matriz [x][y];
+		return prob.getmatriz(x,y);
 	}
 	
 	public void inicilizar(int alto, int ancho, int ladocelda){
@@ -68,10 +67,8 @@ public class tablero extends JPanel {
 		
 	}
 	public void creaobstaculo(int x, int y,Graphics dibujar){
-		//super.paintComponent(dibujar);
 		dibujar.setColor(Color.BLACK);
 		dibujar.fillRect(x*lado,y*lado,lado,lado);
-		//repaint();
 	}
 
 }

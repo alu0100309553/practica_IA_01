@@ -1,3 +1,4 @@
+// En esta clase se definen todos los métodos para la gestión de la ventana del programa
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D; 
