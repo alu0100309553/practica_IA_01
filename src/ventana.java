@@ -38,8 +38,12 @@ public class ventana {
 	tablero panel = new tablero();
 	JRadioButton creaobst = new JRadioButton("Obstáculos");
 	JRadioButton borrarobst = new JRadioButton("Borrar");
+	JRadioButton iniciorobot = new JRadioButton("Inicio");
+	JRadioButton finalrobot = new JRadioButton("Final");
 	private JTextField frecuencia;
 	public final ButtonGroup buttonGroup = new ButtonGroup();
+	boolean inicioset = false;
+	boolean finalset = false;
 	public ventana() {
 		initialize();
 	}
@@ -64,13 +68,13 @@ public class ventana {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Biohazard Agent");
-		frame.setBounds(100, 100, 1600, 950);
+		frame.setBounds(100, 100, 1200, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		contenedor = new JPanel();
 		
 		contenedor.setBackground(Color.GRAY);
-		contenedor.setBounds(180, 0, 1400, 900);
+		contenedor.setBounds(180, 0, 1200, 750);
 		frame.getContentPane().add(contenedor);
 	
 
@@ -80,18 +84,20 @@ public class ventana {
 				altovalue = Integer.parseInt( alto.getText());
 				anchovalue = Integer.parseInt( ancho.getText());
 				ladocelda = 0;
-				if ((1400/anchovalue)<=(900/altovalue)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
-					ladocelda = (1400/anchovalue);
+				inicioset = false;
+				finalset = false;
+				if ((1000/anchovalue)<=(750/altovalue)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
+					ladocelda = (1000/anchovalue);
 				}
 				else {
-					ladocelda = (900/altovalue);
+					ladocelda = (750/altovalue);
 				}
 				
 				panel.inicilizar(altovalue, anchovalue,ladocelda);				
 				panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 				panel.setBackground(Color.WHITE);
-				int pospanelx = (700-(anchovalue*ladocelda/2));
-				int pospanely = (450-(altovalue*ladocelda/2));
+				int pospanelx = (500-(anchovalue*ladocelda/2));
+				int pospanely = (375-(altovalue*ladocelda/2));
 				panel.setBounds(pospanelx, pospanely, ladocelda*anchovalue, ladocelda*altovalue);
 				contenedor.add(panel);
 				contenedor.repaint();
@@ -122,7 +128,7 @@ public class ventana {
 		
 		frecuencia = new JTextField();
 		frecuencia.setText("50");
-		frecuencia.setBounds(22, 235, 114, 19);
+		frecuencia.setBounds(33, 203, 114, 19);
 		frame.getContentPane().add(frecuencia);
 		frecuencia.setColumns(10);
 		
@@ -134,32 +140,34 @@ public class ventana {
 			}
 		}
 		);
-		btnObstculos.setBounds(33, 278, 117, 25);
+		btnObstculos.setBounds(33, 234, 117, 25);
 		frame.getContentPane().add(btnObstculos);
 		
 		
 		buttonGroup.add(creaobst);
-		creaobst.setBounds(11, 342, 141, 23);
+		creaobst.setBounds(11, 340, 141, 23);
 		frame.getContentPane().add(creaobst);
 		
 		
 		buttonGroup.add(borrarobst);
-		borrarobst.setBounds(11, 377, 141, 23);
+		borrarobst.setBounds(11, 370, 141, 23);
 		frame.getContentPane().add(borrarobst);
 		
-		JRadioButton iniciorobot = new JRadioButton("Inicio");
 		buttonGroup.add(iniciorobot);
-		iniciorobot.setBounds(11, 412, 141, 23);
+		iniciorobot.setBounds(11, 400, 141, 23);
 		frame.getContentPane().add(iniciorobot);
 		
-		JRadioButton finalrobot = new JRadioButton("Final");
 		buttonGroup.add(finalrobot);
-		finalrobot.setBounds(11, 440, 141, 23);
+		finalrobot.setBounds(11, 430, 141, 23);
 		frame.getContentPane().add(finalrobot);
 		
 		JLabel lblFuncionesDelMouse = new JLabel("Funciones del Mouse");
-		lblFuncionesDelMouse.setBounds(20, 315, 148, 16);
+		lblFuncionesDelMouse.setBounds(12, 318, 172, 16);
 		frame.getContentPane().add(lblFuncionesDelMouse);
+		
+		JLabel lblObstculosAleatorios = new JLabel("Obstáculos Aleatorios");
+		lblObstculosAleatorios.setBounds(12, 172, 184, 15);
+		frame.getContentPane().add(lblObstculosAleatorios);
 	
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
@@ -172,7 +180,29 @@ public class ventana {
 					panel.repaint();
 				}
 				if(borrarobst.isSelected()==true){
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==2){
+						inicioset=false;						
+					}
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==3){
+						finalset=false;						
+					}
 					panel.setmatriz(pX/ladocelda, pY/ladocelda, 0);
+					panel.repaint();
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==2){
+						inicioset=false;						
+					}
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==3){
+						finalset=false;						
+					}
+				}
+				if (iniciorobot.isSelected()==true && inicioset == false){
+					inicioset = true;
+					panel.setmatriz(pX/ladocelda, pY/ladocelda, 2);
+					panel.repaint();
+				}
+				if (finalrobot.isSelected()==true && finalset == false){
+					finalset = true;
+					panel.setmatriz(pX/ladocelda, pY/ladocelda, 3);
 					panel.repaint();
 				}
 			}

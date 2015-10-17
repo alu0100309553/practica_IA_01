@@ -27,6 +27,12 @@ public class tablero extends JPanel {
 				if (prob.getmatriz(i, j)==1){
 					creaobstaculo(i, j, g);
 				}
+				if (prob.getmatriz(i, j)==2){
+					creainicio(i, j, g);
+				}
+				if (prob.getmatriz(i, j)==3){
+					creafin(i, j, g);
+				}
 			}
 		}
 		
@@ -47,11 +53,11 @@ public class tablero extends JPanel {
 		
 	}
 	public void cuadricula(Graphics dibujar){
-		if ((1400/celdasancho)<=(900/celdasalto)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
-			lado = (1400/celdasancho);
+		if ((1000/celdasancho)<=(750/celdasalto)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
+			lado = (1000/celdasancho);
 		}
 		else {
-			lado = (900/celdasalto);
+			lado = (750/celdasalto);
 		}
 		dibujar.setColor(Color.BLACK);
 		for (int i = 1; i<celdasalto; i++ ){  //Bucle que dibuja las líneas del tablero horizontales
@@ -68,7 +74,15 @@ public class tablero extends JPanel {
 	}
 	public void creaobstaculo(int x, int y,Graphics dibujar){
 		dibujar.setColor(Color.BLACK);
-		dibujar.fillRect(x*lado,y*lado,lado,lado);
+		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
+	}
+	public void creainicio(int x, int y,Graphics dibujar){
+		dibujar.setColor(Color.GREEN);
+		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
+	}
+	public void creafin(int x, int y,Graphics dibujar){
+		dibujar.setColor(Color.RED);
+		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
 	}
 
 }
