@@ -3,14 +3,16 @@ public class problema {
 	private int [][] matriz;
 	private int calto;
 	private int cancho;
+	private int totalobstaculos;
 	
 	public problema(int alto, int ancho){
 		calto=alto;
 		cancho=ancho;
+		totalobstaculos=0;
 		matriz = new int [alto][ancho];
 		for (int i = 0; i<cancho;i++){
 			for (int j = 0 ; j<calto;j++){
-				matriz [i][j]=0;
+				matriz [j][i]=0;
 			}
 		}
 	}
@@ -20,7 +22,11 @@ public class problema {
 	public int getmatriz(int x, int y){
 		return matriz [x][y];
 	}
-
-	
+	public void totalobstaculosadd(){
+		totalobstaculos++;
+	}
+	public void totalobstaculosminus(){
+		totalobstaculos--;
+	}
 	
 }

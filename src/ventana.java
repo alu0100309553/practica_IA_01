@@ -23,6 +23,7 @@ import java.util.Random;
 import javax.swing.JSlider;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import java.awt.event.MouseMotionAdapter;
 
 
 public class ventana {
@@ -56,8 +57,15 @@ public class ventana {
 			int random = rn.nextInt(altovalue*anchovalue);
 			int nfila = random/anchovalue;
 			int ncol = random%anchovalue;
+			if (panel.getmatriz(ncol, nfila)==2){
+				inicioset=false;						
+			}
+			if (panel.getmatriz(ncol, nfila)==3){
+				finalset=false;						
+			}
 			if (panel.getmatriz(ncol, nfila)==0){ //condicional para comprobar si ya existe obstáculo en la celda
 				panel.setmatriz(ncol, nfila, 1);
+				
 				i++; 
 			}
 		}
@@ -72,6 +80,7 @@ public class ventana {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		contenedor = new JPanel();
+		
 		
 		contenedor.setBackground(Color.GRAY);
 		contenedor.setBounds(180, 0, 1200, 750);
@@ -168,14 +177,15 @@ public class ventana {
 		JLabel lblObstculosAleatorios = new JLabel("Obstáculos Aleatorios");
 		lblObstculosAleatorios.setBounds(12, 172, 184, 15);
 		frame.getContentPane().add(lblObstculosAleatorios);
-	
-		panel.addMouseListener(new MouseAdapter() {
+		
+		panel.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseDragged(MouseEvent e) {
 				int pX = e.getX();
 				int pY = e.getY();
 				
 				if(creaobst.isSelected()==true){
+					
 					panel.setmatriz(pX/ladocelda, pY/ladocelda, 1);
 					panel.repaint();
 				}
@@ -195,6 +205,40 @@ public class ventana {
 						finalset=false;						
 					}
 				}
+			}
+		});
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int pX = e.getX();
+				int pY = e.getY();
+				if(creaobst.isSelected()==true){
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==2){
+						inicioset=false;						
+					}
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==3){
+						finalset=false;						
+					}
+					panel.setmatriz(pX/ladocelda, pY/ladocelda, 1);
+					panel.repaint();
+				}
+				if(borrarobst.isSelected()==true){
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==2){
+						inicioset=false;						
+					}
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==3){
+						finalset=false;						
+					}
+					panel.setmatriz(pX/ladocelda, pY/ladocelda, 0);
+					panel.repaint();
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==2){
+						inicioset=false;						
+					}
+					if (panel.getmatriz(pX/ladocelda, pY/ladocelda)==3){
+						finalset=false;						
+					}
+				}
+				
 				if (iniciorobot.isSelected()==true && inicioset == false){
 					inicioset = true;
 					panel.setmatriz(pX/ladocelda, pY/ladocelda, 2);

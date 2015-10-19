@@ -11,7 +11,7 @@ public class tablero extends JPanel {
 	private int celdasalto;
 	private int celdasancho;
 	private int lado;
-	private int [][] matriz;
+	//private int [][] matriz;
 	private problema prob;
 	private boolean iniciado = false;
 	
@@ -84,5 +84,10 @@ public class tablero extends JPanel {
 		dibujar.setColor(Color.RED);
 		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
 	}
-
+	public void controlobstaculosadd(){
+		prob.totalobstaculosadd();
+	}
+	public void controlobstaculosminus(){
+		prob.totalobstaculosminus();
+	}
 }
