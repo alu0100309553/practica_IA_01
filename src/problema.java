@@ -5,6 +5,7 @@ public class problema {
 	private int cancho;
 	private int totalobstaculos;
 	
+	
 	public problema(int alto, int ancho){
 		calto=alto;
 		cancho=ancho;
@@ -17,6 +18,12 @@ public class problema {
 		}
 	}
 	public void setmatriz(int x, int y, int estado){
+		if(matriz [x][y]!=1 && estado == 1){
+			totalobstaculos++;
+		}
+		if(matriz [x][y]==1 && estado != 1){
+			totalobstaculos--;
+		}
 		matriz [x][y]=estado; 
 	}
 	public int getmatriz(int x, int y){
@@ -28,5 +35,7 @@ public class problema {
 	public void totalobstaculosminus(){
 		totalobstaculos--;
 	}
-	
+	public int totalobstaculosreturn(){
+		return totalobstaculos;
+	}
 }

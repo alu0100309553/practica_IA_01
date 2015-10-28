@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.awt.Color;
 //import problema;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class tablero extends JPanel {
 	
@@ -14,6 +16,9 @@ public class tablero extends JPanel {
 	//private int [][] matriz;
 	private problema prob;
 	private boolean iniciado = false;
+	private Image img1 = Toolkit.getDefaultToolkit().getImage("imagenes/wall.png");
+	private Image img2 = Toolkit.getDefaultToolkit().getImage("imagenes/robot.png");
+	private Image img3 = Toolkit.getDefaultToolkit().getImage("imagenes/fin.png");
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -53,11 +58,11 @@ public class tablero extends JPanel {
 		
 	}
 	public void cuadricula(Graphics dibujar){
-		if ((1000/celdasancho)<=(750/celdasalto)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
+		if ((1000/celdasancho)<=(650/celdasalto)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
 			lado = (1000/celdasancho);
 		}
 		else {
-			lado = (750/celdasalto);
+			lado = (650/celdasalto);
 		}
 		dibujar.setColor(Color.BLACK);
 		for (int i = 1; i<celdasalto; i++ ){  //Bucle que dibuja las líneas del tablero horizontales
@@ -73,21 +78,22 @@ public class tablero extends JPanel {
 		
 	}
 	public void creaobstaculo(int x, int y,Graphics dibujar){
-		dibujar.setColor(Color.BLACK);
-		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
+		dibujar.drawImage(img1, x*lado, y*lado,lado, lado,this);
+		//dibujar.setColor(Color.BLACK);
+		//dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
 	}
 	public void creainicio(int x, int y,Graphics dibujar){
-		dibujar.setColor(Color.GREEN);
-		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
+		dibujar.drawImage(img2, x*lado, y*lado,lado, lado,this);
+		//dibujar.setColor(Color.GREEN);
+		//dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
 	}
 	public void creafin(int x, int y,Graphics dibujar){
-		dibujar.setColor(Color.RED);
-		dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
+		dibujar.drawImage(img3, x*lado, y*lado,lado, lado,this);
+		//dibujar.setColor(Color.RED);
+		//dibujar.fillRect((x*lado)+1,(y*lado)+1,lado-1,lado-1);
 	}
-	public void controlobstaculosadd(){
-		prob.totalobstaculosadd();
+	public int controlobstaculoreturn(){
+		return prob.totalobstaculosreturn();
 	}
-	public void controlobstaculosminus(){
-		prob.totalobstaculosminus();
-	}
+	
 }

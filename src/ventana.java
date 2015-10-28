@@ -51,7 +51,16 @@ public class ventana {
 
 	public void obstaculosaleatorios(){
 		int freq = Integer.parseInt( frecuencia.getText());
-		freq = freq*anchovalue*altovalue/100;
+		if ((anchovalue*altovalue)-panel.controlobstaculoreturn() < freq*anchovalue*altovalue/100){
+			//freq=1;
+			freq=(anchovalue*altovalue)-panel.controlobstaculoreturn();
+			System.out.println("entro");
+		}
+		else{
+			freq=freq*anchovalue*altovalue/100;
+			System.out.println("entroelse");
+		}
+		
 		Random rn = new Random();
 		for (int i=0; i < freq;){
 			int random = rn.nextInt(altovalue*anchovalue);
@@ -63,9 +72,8 @@ public class ventana {
 			if (panel.getmatriz(ncol, nfila)==3){
 				finalset=false;						
 			}
-			if (panel.getmatriz(ncol, nfila)==0){ //condicional para comprobar si ya existe obstáculo en la celda
+			if (panel.getmatriz(ncol, nfila)!=1){ //condicional para comprobar si ya existe obstáculo en la celda
 				panel.setmatriz(ncol, nfila, 1);
-				
 				i++; 
 			}
 		}
@@ -76,14 +84,14 @@ public class ventana {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("Biohazard Agent");
-		frame.setBounds(100, 100, 1200, 800);
+		frame.setBounds(100, 100, 1200, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		contenedor = new JPanel();
 		
 		
 		contenedor.setBackground(Color.GRAY);
-		contenedor.setBounds(180, 0, 1200, 750);
+		contenedor.setBounds(180, 0, 1200, 650);
 		frame.getContentPane().add(contenedor);
 	
 
@@ -95,18 +103,18 @@ public class ventana {
 				ladocelda = 0;
 				inicioset = false;
 				finalset = false;
-				if ((1000/anchovalue)<=(750/altovalue)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
+				if ((1000/anchovalue)<=(650/altovalue)){//Comparación para ver que lado me limita el tamaño de celda, se coje el más pequeño para quepa en el lienzo.
 					ladocelda = (1000/anchovalue);
 				}
 				else {
-					ladocelda = (750/altovalue);
+					ladocelda = (650/altovalue);
 				}
 				
 				panel.inicilizar(altovalue, anchovalue,ladocelda);				
 				panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 				panel.setBackground(Color.WHITE);
 				int pospanelx = (500-(anchovalue*ladocelda/2));
-				int pospanely = (375-(altovalue*ladocelda/2));
+				int pospanely = (325-(altovalue*ladocelda/2));
 				panel.setBounds(pospanelx, pospanely, ladocelda*anchovalue, ladocelda*altovalue);
 				contenedor.add(panel);
 				contenedor.repaint();
