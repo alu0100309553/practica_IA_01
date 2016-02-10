@@ -1,0 +1,12 @@
+Integrantes de grupo:
+- Rubén Labrador Páez
+- Mauricio José Orta Rodríguez
+- José Ricardo Pérez Castillo
+
+INSTRUCCIONES PARA EJECUCIÓN DE APLICACIÓN
+
+1- Instalar y configurar Java en el sistema si no lo está.
+
+2- Abrir directorio bin del proyecto.
+
+3- Ejecutar el fichero Biohazard.jar directamente o a través de consola mediante el comando "java -jar Biohazard.jar"
